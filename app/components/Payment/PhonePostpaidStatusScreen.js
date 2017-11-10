@@ -5,12 +5,15 @@ import { ActivityIndicator, Platform, StyleSheet, Text, TouchableNativeFeedback,
 import { store } from '../../../App';
 
 
-export default class TopUpStatusScreen extends Component {
+export default class PhonePostpaidStatusScreen extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       isLoading: true,
-      newGold: this.props.navigation.state.params.newGold
+      currentGold: this.props.navigation.state.params.currentGold,
+      amount: this.props.navigation.state.params.amount,
+      phone: this.props.navigation.state.params.phone,
     }
   }
 
@@ -22,26 +25,30 @@ export default class TopUpStatusScreen extends Component {
     setTimeout(() => {
       this.setState({isLoading: false})
 
+      // only when balance is enough to pay the specified amount,
+      // substract balance with amount      
+      let convertedGold = this.state.amount / store.getState().pricePerGoldGram;
       store.dispatch({
-        type: 'TOP_UP',
-        newGold: parseFloat(this.state.newGold.toFixed(2))
+        type: 'PAY',
+        amount: parseFloat(convertedGold.toFixed(2))
       });
+      
     }, 3000);
   }
 
   render() {
     const { goBack } = this.props.navigation;
 
-    let newGoldStr = this.state.newGold.toFixed(2);    
+    // let newGoldStr = this.state.newGold.toFixed(2);    
 
     return this.state.isLoading
       ? (<ActivityIndicator style={{marginTop: 30, marginBottom: 70}} size="large" />)
       : (<View style={{ flex: 1 }}>
         <View style={{ flex: 1 }}>
           <View style={styles.rowConfirmation}>
-            <Text style={styles.confirmation}>Top up emas seberat</Text>
-            <Text style={styles.confirmationGram}>{newGoldStr} gram</Text>
-            <Text style={styles.confirmation}>berhasil.</Text>
+            <Text style={styles.confirmation}>Pembayaran telepon</Text>
+            <Text style={styles.confirmationGram}>{this.state.phone}</Text>
+            <Text style={styles.confirmation}>berhasil</Text>
           </View>
         </View>
 
@@ -55,8 +62,7 @@ export default class TopUpStatusScreen extends Component {
             </View>
           </TouchableNativeFeedback>
         </View>
-      </View>
-    );
+      </View>);
   }
 }
 

@@ -3,9 +3,9 @@ import { Dimensions, Platform, StyleSheet, Text, TouchableNativeFeedback, View }
   from 'react-native';
 
 import { separateWithCommasTwoDecimals } from '../../utils/Helper';
-import { globalState, store } from '../../../App';
+import { store } from '../../../App';
 
-const GRID_PADDING = 8;
+const GRID_PADDING = 15;
 const NUM_COLS = 3;
 
 
@@ -123,13 +123,14 @@ const styles = StyleSheet.create({
     width: _getGridElementSize(),
     height: _getGridElementSize(),
     borderWidth: 1,
-    borderColor: 'lightgray',
+    borderColor: 'darkorange',
+    borderRadius: 5,
     backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'center',    
   },
   productText: {
-    fontSize: 18,
-    color: 'black'
+    fontSize: 14,
+    color: 'darkorange'
   }
 });

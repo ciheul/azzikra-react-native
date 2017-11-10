@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FlatList, Platform, StyleSheet, Text, TouchableNativeFeedback, View }
   from 'react-native';
 
-import { globalState, store } from '../../../App';
+import { store } from '../../../App';
 import { separateWithDots, separateWithCommasTwoDecimals } from '../../utils/Helper';
 
 

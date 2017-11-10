@@ -5,7 +5,6 @@ import { Dimensions, Platform, StyleSheet, Text, TouchableNativeFeedback, View }
 import { separateWithCommasTwoDecimals } from '../../utils/Helper';
 import { store } from '../../../App';
 
-
 const GRID_PADDING = 15;
 const NUM_COLS = 3;
 
@@ -16,7 +15,7 @@ function _getGridElementSize() {
 }
 
 
-export default class HomeScreen extends Component {
+export default class PaymentScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -37,13 +36,10 @@ export default class HomeScreen extends Component {
   }
 
   componentDidMount() {
-    // TODO: temporary for simulation. should be using ajax to retrieve    
-    // store.dispatch({ type: 'TOP_UP', newGold: 200 });
-    store.dispatch({ type: 'UPDATE_PRICE', newPrice: 622553 });
-
-    // this.setState({ currentGold: store.getState().currentGold});    
-    this.setState({ pricePerGoldGram: store.getState().pricePerGoldGram});
-  }
+    // TODO: temporary for simulation. should be using ajax to retrieve
+    // this.setState({gold: parseFloat(257.12)});
+    // this.setState({pricePerGoldGram: parseFloat(500000.00)});    
+  }  
 
   render() {
     const { navigate } = this.props.navigation;
@@ -53,7 +49,7 @@ export default class HomeScreen extends Component {
     let balance = this.state.currentGold * this.state.pricePerGoldGram;
     
     let modifiedBalance = this._modifyBalance(balance);
-
+    
     let currentGoldStr = this.state.currentGold.toFixed(2);
 
     return (
@@ -65,29 +61,29 @@ export default class HomeScreen extends Component {
 
         <View style={styles.grid}>          
           <TouchableNativeFeedback
-              onPress={() => navigate('goldScreen')}
+              onPress={() => navigate('phonePostpaidScreen')}
               background={Platform.OS === 'android' ?
                 TouchableNativeFeedback.SelectableBackground() : ''}>
             <View style={styles.product}>
-              <Text style={styles.productText}>Emas</Text>
+              <Text style={styles.productText}>Telepon</Text>
             </View>
           </TouchableNativeFeedback>
           
           <TouchableNativeFeedback
-              onPress={() => navigate('paymentScreen')}
+              onPress={() => navigate('plnPostpaidScreen')}
               background={Platform.OS === 'android' ?
                 TouchableNativeFeedback.SelectableBackground() : ''}>
             <View style={styles.product}>
-              <Text style={styles.productText}>Pembayaran</Text>
+              <Text style={styles.productText}>PLN</Text>
             </View>
           </TouchableNativeFeedback>
-
+          
           <TouchableNativeFeedback
-              onPress={() => navigate('purchaseScreen')}
+              onPress={() => navigate('pamScreen')}
               background={Platform.OS === 'android' ?
                 TouchableNativeFeedback.SelectableBackground() : ''}>
             <View style={styles.product}>
-              <Text style={styles.productText}>Pembelian</Text>
+              <Text style={styles.productText}>PAM</Text>
             </View>
           </TouchableNativeFeedback>
         </View>             
@@ -131,7 +127,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: 'white',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center',    
   },
   productText: {
     fontSize: 14,

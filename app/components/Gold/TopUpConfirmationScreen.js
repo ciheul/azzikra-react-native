@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, TouchableNativeFeedback, View }
   from 'react-native';
 
-import { globalState, store } from '../../../App';
+import { store } from '../../../App';
 
 export default class TopUpConfirmationScreen extends Component {
   constructor(props) {
@@ -31,19 +31,21 @@ export default class TopUpConfirmationScreen extends Component {
 
     return (
       <View style={styles.container}>
-        <View style={styles.rowConfirmation}>
-          <Text style={styles.confirmation}>Emas dibeli</Text>
-          <Text style={styles.confirmation}>{gramStr} gram</Text>
-        </View>
+        <View style={{ flex: 1 }}>
+          <View style={styles.rowConfirmation}>
+            <Text style={styles.confirmation}>Emas dibeli</Text>
+            <Text style={styles.confirmation}>{gramStr} gram</Text>
+          </View>
 
-        <View style={styles.rowConfirmation}>
-          <Text style={styles.confirmation}>Emas saat ini</Text>
-          <Text style={styles.confirmation}>{gramCurrentStr} gram</Text>
-        </View>
+          <View style={styles.rowConfirmation}>
+            <Text style={styles.confirmation}>Emas saat ini</Text>
+            <Text style={styles.confirmation}>{gramCurrentStr} gram</Text>
+          </View>
 
-        <View style={styles.rowConfirmation}>
-          <Text style={styles.confirmation}>Emas setelah dibeli</Text>
-          <Text style={styles.confirmation}>{gramAfterBuyStr} gram</Text>
+          <View style={styles.rowConfirmation}>
+            <Text style={styles.confirmation}>Emas setelah dibeli</Text>
+            <Text style={styles.confirmation}>{gramAfterBuyStr} gram</Text>
+          </View>
         </View>
 
         <View style={{ marginTop: 15 }}>
@@ -82,12 +84,11 @@ const styles = StyleSheet.create({
   confirmationButton: {
     alignItems: 'center',
     backgroundColor: 'green',
-    height: 48,      
+    padding: 18
   },
   confirmationTextButton: {    
     color: 'white',
     fontSize: 18,
     fontWeight: 'bold',
-    padding: 10,
   }
 });

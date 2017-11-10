@@ -3,7 +3,7 @@ import { Platform, StyleSheet, Text, TouchableNativeFeedback, View }
   from 'react-native';
 
 
-export default class PulsaScreen extends Component {
+export default class PurchaseScreen extends Component {
   render() {
     return (
       <View>

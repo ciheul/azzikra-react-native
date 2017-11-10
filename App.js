@@ -14,13 +14,15 @@ import { Platform, StatusBar } from 'react-native';
 import { DrawerNavigator, StackNavigator } from 'react-navigation';
 import { createStore } from 'redux';
 
-
-import HomeScreen from './app/components/Core/HomeScreen';
-
+// AUTHENTICATION
 import LoginScreen from './app/components/Authentication/LoginScreen';
 import SignUpScreen from './app/components/Authentication/SignUpScreen';
 import ForgottenPasswordScreen from './app/components/Authentication/ForgottenPasswordScreen';
 
+// CORE
+import HomeScreen from './app/components/Core/HomeScreen';
+
+// GOLD
 import GoldScreen from './app/components/Gold/GoldScreen';
 import TopUpScreen from './app/components/Gold/TopUpScreen';
 import TopUpConfirmationScreen from './app/components/Gold/TopUpConfirmationScreen';
@@ -28,15 +30,15 @@ import TopUpStatusScreen from './app/components/Gold/TopUpStatusScreen';
 import MoneyWithdrawScreen from './app/components/Gold/MoneyWithdrawScreen';
 import GoldWithdrawScreen from './app/components/Gold/GoldWithdrawScreen';
 
-import PlnScreen from './app/components/PaymentPoint/PlnScreen';
-import PulsaScreen from './app/components/PaymentPoint/PulsaScreen';
+// PAYMENT
+import PaymentScreen from './app/components/Payment/PaymentScreen';
+import PlnPostpaidScreen from './app/components/Payment/PlnPostpaidScreen';
+import PhonePostpaidScreen from './app/components/Payment/PhonePostpaidScreen';
+import PhonePostpaidPaymentScreen from './app/components/Payment/PhonePostpaidPaymentScreen';
+import PhonePostpaidStatusScreen from './app/components/Payment/PhonePostpaidStatusScreen';
 
-
-export var globalState = {
-  gold: 257.12,
-  pricePerGoldGram: 622553,
-  priceUpdatedAt: new Date(),
-};
+// PURCHASE
+import PurchaseScreen from './app/components/Purchase/PurchaseScreen';
 
 
 function counter(state = {currentGold: 0, pricePerGoldGram: 0}, action) {
@@ -48,6 +50,10 @@ function counter(state = {currentGold: 0, pricePerGoldGram: 0}, action) {
     case 'UPDATE_PRICE':
       return Object.assign({}, state, {
         'pricePerGoldGram': action.newPrice      
+      });
+    case 'PAY':
+      return Object.assign({}, state, {
+        'currentGold': state.currentGold - action.amount
       });
     default:
       return state;
@@ -88,30 +94,48 @@ const MainStack = StackNavigator({
   },
   topUpConfirmationScreen: {
     screen: TopUpConfirmationScreen,
-    navigationOptions: { headerTitle: 'TOP UP CONFIRMATION' }
+    navigationOptions: { headerTitle: 'KONFIRMASI' }
   },
   topUpStatusScreen: {
     screen: TopUpStatusScreen,
-    navigationOptions: { headerTitle: 'TOP UP STATUS' }
+    navigationOptions: { headerTitle: 'STATUS' }
   },
   moneyWithdrawScreen: {
     screen: MoneyWithdrawScreen,
-    navigationOptions: { headerTitle: 'Tarik Uang' }
+    navigationOptions: { headerTitle: 'TARIK UANG' }
   },
   goldWithdrawScreen: {
     screen: GoldWithdrawScreen,
-    navigationOptions: { headerTitle: 'Tarik Emas' }
+    navigationOptions: { headerTitle: 'TARIK EMAS' }
   },
-  
-  // PAYMENT POINT STACK
-  pulsaScreen: {
-    screen: PulsaScreen,
-    navigationOptions: { headerTitle: 'PULSA' }
+
+  // PAYMENT STACK
+  paymentScreen: {
+    screen: PaymentScreen,
+    navigationOptions: { headerTitle: 'PEMBAYARAN' }
   },
-  plnScreen: {
-    screen: PlnScreen,
+  plnPostpaidScreen: {
+    screen: PlnPostpaidScreen,
     navigationOptions: { headerTitle: 'PLN' }
-  }
+  },
+  phonePostpaidScreen: {
+    screen: PhonePostpaidScreen,
+    navigationOptions: { headerTitle: 'TELEPON' }
+  },
+  phonePostpaidPaymentScreen: {
+    screen: PhonePostpaidPaymentScreen,
+    navigationOptions: { headerTitle: 'KONFIRMASI' }
+  },
+  phonePostpaidStatusScreen: {
+    screen: PhonePostpaidStatusScreen,
+    navigationOptions: { headerTitle: 'TELEPON' }
+  },
+
+  // PURCHASE STACK
+  purchaseScreen: {
+    screen: PurchaseScreen,
+    navigationOptions: { headerTitle: 'PEMBELIAN' }
+  },
 }, {
   headerMode: 'float',
   navigationOptions: ({navigation}) => ({
